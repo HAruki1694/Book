@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The Lighthouse Keeper — A Mini Book</title>
+  <style>
+    :root{
+      --bg:#f6f6f3;
+      --paper:#fffdf8;
+      --accent:#0b5563;
+      --muted:#6b6b6b;
+      --maxw:900px;
+      --radius:14px;
+      --page-padding:3rem;
+      font-family: "Georgia", "Times New Roman", serif;
+    }
+    *{box-sizing:border-box}
+    body{background:linear-gradient(180deg,#e9f3f4 0%,var(--bg) 40%);margin:0;min-height:100vh;display:flex;align-items:flex-start;justify-content:center;padding:3rem 1rem;color:#222}
+
+    .book-wrap{max-width:var(--maxw);width:100%;display:grid;grid-template-columns:1fr 360px;gap:2rem;align-items:start}
+
+    /* Left — reading area */
+    .reader{background:var(--paper);border-radius:var(--radius);padding:var(--page-padding);box-shadow:0 6px 30px rgba(10,20,30,0.08);}
+    .cover{display:flex;flex-direction:column;align-items:flex-start;gap:.5rem}
+    .title{font-size:2.2rem;line-height:1.05;color:var(--accent);font-weight:700}
+    .byline{font-size:.95rem;color:var(--muted)}
+    hr{border:none;border-top:1px solid #eee;margin:1.25rem 0}
+    .chapter-title{font-size:1.25rem;margin:1.25rem 0 .35rem 0;color:#0f3f44}
+    p{line-height:1.75;font-size:1rem;margin:.7rem 0;color:#222}
+
+    /* Right — sidebar */
+    .sidebar{background:transparent}
+    .card{background:rgba(255,255,255,0.9);border-radius:12px;padding:1rem;box-shadow:0 6px 18px rgba(12,18,24,0.06)}
+    .toc h3{margin:.1rem 0 .6rem 0}
+    .toc a{display:block;padding:.45rem .6rem;border-radius:8px;color:var(--accent);text-decoration:none;font-weight:600}
+    .toc a:hover{background:linear-gradient(90deg,rgba(11,85,99,0.06),transparent)}
+    .controls{display:flex;gap:.5rem;margin-top:.8rem}
+    .btn{background:var(--accent);color:white;padding:.45rem .7rem;border-radius:8px;border:none;cursor:pointer;font-weight:700}
+    .btn.secondary{background:transparent;border:1px solid #cfe9ea;color:var(--accent);font-weight:700}
+
+    /* small screen adjustments */
+    @media (max-width:980px){
+      .book-wrap{grid-template-columns:1fr}
+      .sidebar{order:2}
+    }
+  </style>
+</head>
+<body>
+  <main class="book-wrap">
+    <article class="reader" id="reader">
+      <header class="cover">
+        <div class="title">The Lighthouse Keeper</div>
+        <div class="byline">by A. Reader — A short original tale</div>
+      </header>
+
+      <hr />
+
+      <section id="chapter-1">
+        <h2 class="chapter-title">Chapter 1 — The Beacon</h2>
+        <p>On the edge of a quiet cliff stood a lone lighthouse whose glass eyes blinked gently at sea. The keeper, Elias, had tended the light for as long as the village could remember. Each evening he climbed the iron stairs and wound the mechanism, listening for the distant hush of waves that seemed to bring messages from far-off places.</p>
+        <p>That autumn, storms rode in with a new urgency. Fishermen whispered of ships misreading the coast. Elias noticed patterns in the tide — a strange cadence under the moon — and he began to write small notes into a leather journal, curious and cautious in equal measure.</p>
+      </section>
+
+      <section id="chapter-2">
+        <h2 class="chapter-title">Chapter 2 — A Letter in a Bottle</h2>
+        <p>One morning a bottle appeared in the cove below the lighthouse, trapped among kelp and rounded stones. Inside was a folded scrap of paper, ink blurred but legible: a map, a name, and the single word, "Home." Elias felt the tug of another life already woven into the tide's currents.</p>
+        <p>He read the name aloud and found himself tracing routes he had never walked. The village, usually content to look outward for weather and trade, began to ask what else the sea might be hiding. Elias passed the bottle to the village teacher, and together they planned a cautious search along the rocky shore.</p>
+      </section>
+
+      <section id="chapter-3">
+        <h2 class="chapter-title">Chapter 3 — The Keeper's Choice</h2>
+        <p>Days grew short and the map led them to a small cove where a weathered rowboat lay half-submerged. Inside were belongings of a family that had been lost at sea decades earlier — trinkets, a button with a carved anchor, and a child's sketch of a lighthouse much like Elias's own.</p>
+        <p>Elias realized the lantern he kept was more than a warning; it was a promise. He lit it with a purpose deeper than habit and felt the coastline breathe easier. When the next storm came, the village huddled and the light held, as if anchored by the memory of those finally found.</p>
+      </section>
+
+      <footer style="margin-top:1.5rem;font-size:.9rem;color:var(--muted)">End of this short excerpt — try the Table of Contents to jump between chapters, or press "Print" to save a clean PDF.</footer>
+    </article>
+
+    <aside class="sidebar">
+      <div class="card toc">
+        <h3>Table of Contents</h3>
+        <a href="#chapter-1" onclick="jumpTo(event,'chapter-1')">Chapter 1 — The Beacon</a>
+        <a href="#chapter-2" onclick="jumpTo(event,'chapter-2')">Chapter 2 — A Letter in a Bottle</a>
+        <a href="#chapter-3" onclick="jumpTo(event,'chapter-3')">Chapter 3 — The Keeper's Choice</a>
+
+        <div style="margin-top:1rem">
+          <strong>Reading Controls</strong>
+          <div class="controls">
+            <button class="btn" id="toggleMode">Night Mode</button>
+            <button class="btn secondary" id="printBtn">Print</button>
+          </div>
+        </div>
+
+        <div style="margin-top:1rem;font-size:.9rem;color:var(--muted)">
+          <p style="margin:.25rem 0">This is a single-file HTML + CSS page. You can copy the source into a file named <code>book.html</code> and open it in any browser.</p>
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <script>
+    const reader = document.getElementById('reader');
+    const toggle = document.getElementById('toggleMode');
+    const printBtn = document.getElementById('printBtn');
+
+    function jumpTo(ev, id){
+      ev.preventDefault();
+      document.getElementById(id).scrollIntoView({behavior:'smooth', block:'start'});
+    }
+
+    toggle.addEventListener('click', ()=>{
+      const isNight = document.documentElement.style.getPropertyValue('--bg') === '#0b1720';
+      if(!isNight){
+        document.documentElement.style.setProperty('--bg','#0b1720');
+        document.documentElement.style.setProperty('--paper','#0b1114');
+        document.documentElement.style.setProperty('--accent','#7ad0d6');
+        document.documentElement.style.setProperty('--muted','#aeb6b8');
+        toggle.textContent = 'Day Mode';
+        document.body.style.color = '#dfeff0';
+      } else {
+        document.documentElement.style.setProperty('--bg','#f6f6f3');
+        document.documentElement.style.setProperty('--paper','#fffdf8');
+        document.documentElement.style.setProperty('--accent','#0b5563');
+        document.documentElement.style.setProperty('--muted','#6b6b6b');
+        toggle.textContent = 'Night Mode';
+        document.body.style.color = '#222';
+      }
+    });
+
+    printBtn.addEventListener('click', ()=> window.print());
+  </script>
+</body>
+</html>
